@@ -341,8 +341,13 @@
   <div class="popup slide-up">
     <h2>Confirm Order</h2>
     <p>Order ID: <span id="popupOrderId"></span></p>
+
+    <label for="customerName">Name:</label>
+    <input type="text" id="customerName" placeholder="Enter your name">
+
     <label for="customerMobile">Mobile Number:</label>
-    <input type="text" id="customerMobile" placeholder="Enter your mobile number">
+    <input type="text" id="customerMobile" placeholder="10-digit mobile number">
+
     <div class="popup-buttons">
       <button class="pulse-btn" onclick="confirmOrder()">Confirm &amp; WhatsApp</button>
       <button class="cancel" onclick="closeOrderPopup()">Cancel</button>
