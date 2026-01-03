@@ -1,3 +1,5 @@
+// ---------------- GLOBAL STATE ----------------
+
 // cart will store objects like { name, price, qty }
 let cart = [];
 
@@ -7,7 +9,9 @@ const ORDER_API_URL = 'https://script.google.com/macros/s/AKfycbybOkkOX5Q0JDO1mx
 // will hold the order id returned from Google Sheets (1, 2, 3, ...)
 let currentOrderId = null;
 
+
 // ---------------- ADD TO CART WITH QUANTITY ----------------
+
 function addToCart(name, price) {
   const existing = cart.find(item => item.name === name);
 
@@ -20,7 +24,9 @@ function addToCart(name, price) {
   updateCart();
 }
 
+
 // ---------------- CHANGE QTY FROM + / - BUTTONS ON CARD ----------------
+
 function changeQty(button, delta) {
   // block clicks on out-of-stock cards
   if (button.closest('.product-card')?.classList.contains('out-of-stock')) {
@@ -57,7 +63,9 @@ function changeQty(button, delta) {
   updateCart();
 }
 
+
 // ---------------- UPDATE CART DISPLAY ----------------
+
 function updateCart() {
   const cartItemsBody = document.getElementById('cartItems');
   const cartCount = document.getElementById('cartCount');
@@ -78,32 +86,34 @@ function updateCart() {
 
   const itemsTotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
 
-  const shipping = 40;
-  const payableTotal = itemsTotal;
+  const shipping = 40;               // not added to payable
+  const payableTotal = itemsTotal;   // free shipping
 
   itemsTotalSpan.textContent = itemsTotal;
   totalSpan.textContent = payableTotal;
 }
 
-// ---------------- OPEN POPUP (NO ID CREATED HERE) ----------------
+
+// ---------------- OPEN / CLOSE POPUP ----------------
+
 function openOrderPopup() {
   if (cart.length === 0) {
     alert('Cart is empty!');
     return;
   }
 
-  // clear old id in popup; new one will come from Google Sheets after confirm
+  // show popup; order id will be set after saving to sheet
   document.getElementById('popupOrderId').textContent = '...';
   document.getElementById('orderPopup').style.display = 'flex';
 }
 
-// hide popup
 function closeOrderPopup() {
   document.getElementById('orderPopup').style.display = 'none';
 }
 
+
 // ---------------- CONFIRM ORDER + SAVE TO SHEET + WHATSAPP ----------------
-// ---------------- CONFIRM ORDER + SAVE TO SHEET + WHATSAPP ----------------
+
 async function confirmOrder() {
   const name = document.getElementById('customerName').value.trim();
   const mobile = document.getElementById('customerMobile').value.trim();
@@ -122,63 +132,4 @@ async function confirmOrder() {
 
   const itemsTotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
   const shipping = 40;
-  const payableTotal = itemsTotal;
-
-  // plain text version of items for saving in sheet
-  const itemsTextPlain = cart
-    .map((item, i) =>
-      `${i + 1}. ${item.name} x${item.qty} - ₹${item.price * item.qty}`
-    )
-    .join('\n');
-
-  // 1) Send order to Google Apps Script, get incremental order_id
-  try {
-    const resp = await fetch(ORDER_API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name,
-        mobile,
-        items: itemsTextPlain,
-        itemsTotal,
-        payableTotal
-      })
-    });
-
-    const data = await resp.json();
-    if (!data.success) {
-      alert('Error creating order id. Please try again.');
-      return;
-    }
-
-    currentOrderId = data.orderId;              // 1, 2, 3, ...
-    document.getElementById('popupOrderId').textContent = currentOrderId;
-
-  } catch (e) {
-    alert('Network error while creating order. Please try again.');
-    return;
-  }
-
-  // 2) Open WhatsApp with that order id
-  const myWhatsAppNumber = '919912233382';
-
-  const itemsTextWA = encodeURIComponent(itemsTextPlain).replace(/%0A/g, '%0A');
-
-  const message =
-    `New Order%0A` +
-    `Order ID: ${currentOrderId}%0A` +
-    `Customer Name: ${encodeURIComponent(name)}%0A` +
-    `Customer Mobile: ${mobile}%0A` +
-    `Items:%0A${itemsTextWA}%0A` +
-    `Items Total: ₹${itemsTotal}%0A` +
-    `Shipping: ₹${shipping} (FREE given to customer)%0A` +
-    `Payable Total: ₹${payableTotal}`;
-
-  const waUrl = `https://wa.me/${myWhatsAppNumber}?text=${message}`;
-
-  window.open(waUrl, '_blank');
-
-  cart = [];
-  updateCart();
-  closeOrderPopup();
-}
+  c
