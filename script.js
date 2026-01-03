@@ -125,48 +125,55 @@ function closeOrderPopup() {
 
 // ---------------- CONFIRM ORDER + WHATSAPP MESSAGE ----------------
 function confirmOrder() {
+  const name = document.getElementById('customerName').value.trim();
   const mobile = document.getElementById('customerMobile').value.trim();
-  if (!mobile) {
-    alert('Please enter mobile number');
+
+  // basic name check
+  if (!name) {
+    alert('Please enter your name');
     return;
   }
 
-  // calculate totals again (same logic as updateCart)
+  // mobile: only digits, 10 digits, cannot start with 0
+  const mobileRegex = /^[1-9]\d{9}$/;
+  if (!mobileRegex.test(mobile)) {
+    alert('Enter a valid 10-digit mobile number (cannot start with 0)');
+    return;
+  }
+
   const itemsTotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
   const shipping = 40;
-  const payableTotal = itemsTotal; // you give free shipping
+  const payableTotal = itemsTotal;
 
-  // build items list text with quantities for WhatsApp
   const itemsText = cart
     .map((item, i) =>
       `${i + 1}. ${item.name} x${item.qty} - ₹${item.price * item.qty}`
     )
-    .join('%0A'); // %0A is newline in URL
+    .join('%0A');
 
-  // your WhatsApp number in international format (no +, no spaces)
   const myWhatsAppNumber = '919912233382';
 
-  // message body with totals and shipping info
   const message =
     `New Order%0A` +
     `Order ID: ${currentOrderId}%0A` +
+    `Customer Name: ${encodeURIComponent(name)}%0A` +
     `Customer Mobile: ${mobile}%0A` +
     `Items:%0A${itemsText}%0A` +
     `Items Total: ₹${itemsTotal}%0A` +
     `Shipping: ₹${shipping} (FREE given to customer)%0A` +
     `Payable Total: ₹${payableTotal}`;
 
-  // WhatsApp click-to-chat URL
   const waUrl = `https://wa.me/${myWhatsAppNumber}?text=${message}`;
 
-  // open WhatsApp; user taps Send there
   window.open(waUrl, '_blank');
 
-  // clear cart and close popup
   cart = [];
   updateCart();
   closeOrderPopup();
 }
+
+
+
 
 // ---------------- FILTER LOGIC FOR TAG BUTTONS ----------------
 document.addEventListener('DOMContentLoaded', function () {
