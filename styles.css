@@ -1,0 +1,474 @@
+/* Page basics */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  /* blurred food background for whole page */
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+    url("blur.png")
+      center/cover fixed no-repeat;
+  min-height: 100vh;
+  display: block;     /* instead of flex */
+  padding: 20px 10px;
+}
+
+
+/* Hero with blurred biryani image + dark gradient */
+.hero {
+  background:
+    linear-gradient(to right, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.25)),
+    url("biryani-hero.png")
+      center/cover no-repeat;
+  padding: 80px 40px 60px 40px;  /* more height for a premium banner */
+  color: #fff;
+  position: relative;
+  display: flex;
+  align-items: center;   /* vertically center text in the banner */
+}
+
+/* remove extra dark overlay – gradient above is enough */
+.hero::after {
+  content: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;      /* keeps text on left side */
+}
+
+.main-title {
+  font-size: 30px;  /* was 34px */
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+  margin: 0 0 8px 0;
+}
+
+.hero-subtitle {
+  margin: 0;
+  font-size: 16px;
+}
+
+
+/* Main container */
+.container {
+  max-width: 1100px;     /* was 960px */
+  margin: 10px auto 30px auto;  /* was -20px auto 30px auto */
+  background: rgba(255, 255, 255, 0.97);
+  padding: 20px;
+  border-radius: 18px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+  position: relative;
+  backdrop-filter: blur(6px);
+}
+
+.fade-in {
+  animation: fadeIn 0.7s ease-out;
+}
+
+/* Category tags row */
+.tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.tag {
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid #ffb74d;
+  color: #ff6f00;
+  font-size: 13px;
+  cursor: pointer;
+  background: #fff7e6;
+}
+
+.tag.active {
+  background: #ff6f00;
+  color: #fff;
+}
+
+/* Products grid */
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Product card (original flexible width) */
+.product-card {
+  background: #fffdf8;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  flex: 1 1 280px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover pop */
+.card-pop:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.14);
+}
+
+/* Product image (original) */
+.product-image {
+  position: relative;
+  height: 160px;
+  overflow: hidden;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.product-card:hover .product-image img {
+  transform: scale(1.05);
+}
+
+/* Badges */
+.badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  color: #fff;
+}
+
+.badge-nonveg {
+  background: #c62828;
+}
+
+.badge-veg {
+  background: #2e7d32;
+}
+
+.badge-bestseller {
+  top: 10px;
+  right: 10px;
+  left: auto;
+  background: #ff8f00;
+}
+
+/* Product info */
+.product-info {
+  padding: 12px 14px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.product-info h3 {
+  margin: 0 0 6px 0;
+  font-size: 16px;
+}
+
+.product-desc {
+  margin: 0 0 10px 0;
+  font-size: 13px;
+  color: #555;
+}
+
+/* Bottom row inside card */
+.product-bottom {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.price {
+  margin: 0;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* show MRP as struck-through */
+.old-price {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 13px;
+  margin-right: 6px;
+}
+
+/* actual selling price */
+.offer-price {
+  color: #388e3c;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* offer text below price */
+.sub-note {
+  margin: 2px 0 0 0;
+  font-size: 11px;
+  color: #e65100;
+}
+
+
+.sub-note {
+  margin: 2px 0 0 0;
+  font-size: 11px;
+  color: #777;
+}
+
+/* Buttons */
+button {
+  background: #4CAF50;
+  color: white;
+  padding: 9px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+button:hover {
+  background: #43a047;
+}
+
+/* Pulse animation for main buttons */
+.pulse-btn {
+  animation: pulse 1.6s infinite;
+}
+
+/* Cart section */
+.cart {
+  margin-top: 30px;
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+
+.cart h2 {
+  margin-top: 0;
+}
+
+.total-text {
+  font-weight: bold;
+}
+
+/* Popup overlay */
+.popup-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+/* Popup box */
+.popup {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  width: 320px;
+}
+
+/* Slide-up for popup */
+.slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+}
+
+/* Popup input */
+.popup input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 8px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Popup buttons */
+.popup-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.popup .cancel {
+  background: #999;
+}
+
+/* Keyframe animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(76,175,80,0.5); }
+  70% { transform: scale(1.03); box-shadow: 0 0 0 14px rgba(76,175,80,0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(76,175,80,0); }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Small screens */
+@media (max-width: 600px) {
+  .hero {
+    padding: 30px 15px;
+  }
+
+  .main-title {
+    font-size: 26px;
+  }
+
+  .container {
+    margin: -15px 10px 20px 10px;
+    padding: 15px;
+  }
+}
+
+/* product filter logic */
+.product-card.hidden {
+  display: none;
+}
+/* Cart lines: product + qty + amount */
+#cartTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#cartTable td {
+  padding: 4px 0;
+  font-size: 13px;
+  text-align: left;      /* force to left side */
+  font-weight: bold;     /* make the whole line bold */
+}
+/* quantity contro; */
+/* quantity control box */
+.qty-controls {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;           /* pill shape */
+  background: #e8f5e9;            /* light green */
+  border: 1px solid #c5e1a5;
+  overflow: hidden;               /* hide inner corners */
+}
+
+/* + and - buttons inside box */
+.qty-btn {
+  background: transparent;
+  color: #2e7d32;
+  border: none;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qty-btn:hover {
+  background: #c5e1a5;
+}
+
+/* number in the middle of box */
+.qty-value {
+  min-width: 26px;
+  text-align: center;
+  font-weight: bold;
+  color: #2e7d32;
+  font-size: 14px;
+  padding: 0 4px;
+}
+/* Cart wrapper as a card */
+.cart {
+  margin-top: 30px;
+  border-top: none;                 /* remove old border */
+  padding-top: 0;
+}
+
+.cart-inner {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 18px 20px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+/* cart header */
+.cart-inner h2 {
+  margin: 0 0 10px 0;
+}
+
+/* thin divider */
+.cart-separator {
+  height: 1px;
+  background: #f0f0f0;
+  margin: 10px 0 14px 0;
+}
+
+/* spacing for totals */
+.cart-totals {
+  margin-top: 10px;
+}
+
+.cart-totals p {
+  margin: 2px 0;
+}
+
+/* Out of stock styling */
+.product-card.out-of-stock {
+  opacity: 0.6;
+  position: relative;
+}
+
+/* Show an OUT OF STOCK ribbon on image */
+.product-card.out-of-stock::after {
+  content: "OUT OF STOCK";
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(198, 40, 40, 0.95);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: bold;
+  z-index: 2;
+}
+
+/* Disable quantity controls inside out-of-stock cards */
+.product-card.out-of-stock .qty-controls {
+  pointer-events: none;          /* no click */
+  filter: grayscale(1);
+  opacity: 0.5;
+}
+
+/* Optional: change sub-note color */
+.product-card.out-of-stock .sub-note {
+  color: #c62828;
+  font-weight: bold;
+}

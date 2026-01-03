@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biryani For Lunch</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="hero">
+    <div class="hero-content">
+        <h1 class="main-title">BIRYANI FOR LUNCH</h1>
+        <p class="hero-subtitle">Order your favourite biryani and combo dishes for today’s lunch.</p>
+    </div>
+</header> 
+
+<main class="container fade-in">
+    <!-- Category filters -->
+    <div class="tags-row">
+        <span class="tag active" data-filter="all">All</span>
+        <span class="tag" data-filter="nonveg">Non‑Veg</span>
+        <span class="tag" data-filter="veg">Veg</span>
+        <span class="tag" data-filter="bestseller">Best Seller</span>
+    </div>
+
+    <!-- ONE products section only -->
+    <section class="products">
+        <!-- Card 1: Chicken Dum Biryani -->
+        <article class="product-card card-pop"
+                 data-category="nonveg"
+                 data-bestseller="true">
+            <div class="product-image">
+                <img src="https://vismaifood.com/storage/app/uploads/public/e12/7b7/127/thumb__1200_0_0_0_auto.jpg"
+                     alt="Chicken Biryani">
+                <span class="badge badge-nonveg">Non‑Veg</span>
+                <span class="badge badge-bestseller">Best Seller</span>
+            </div>
+            <div class="product-info">
+                <h3>Chicken Dum Biryani (1 plate)</h3>
+                <p class="product-desc">Office‑special chicken biryani, perfect for one hungry person.</p>
+                <div class="product-bottom">
+                    <div>
+                        <p class="price">
+                            <span class="old-price">₹232</span>
+                            <span class="offer-price">₹139</span>
+                        </p>
+                        <p class="sub-note">40% OFF today</p>
+                    </div>
+                    <!-- qty controls -->
+                    <div class="qty-controls"
+                         data-name="Chicken Dum Biryani (1 plate)"
+                         data-price="139">
+                      <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                      <span class="qty-value">0</span>
+                      <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Card 2: Chicken Fry Biryani -->
+        <article class="product-card card-pop"
+                 data-category="nonveg"
+                 data-bestseller="true">
+            <div class="product-image">
+                <img src="https://i.ytimg.com/vi/ySPhGVskTnc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLDDHLusOVLF4bQhBF04BiPSc4w94w"
+                     alt="Chicken Fry Biryani">
+                <span class="badge badge-nonveg">Non‑Veg</span>
+                <span class="badge badge-bestseller">Best Seller</span>
+            </div>
+            <div class="product-info">
+                <h3>Chicken Fry Biryani (1 plate)</h3>
+                <p class="product-desc">Office‑special chicken Fry biryani, perfect for one hungry person.</p>
+                <div class="product-bottom">
+                    <div>
+                        <p class="price">
+                            <span class="old-price">₹232</span>
+                            <span class="offer-price">₹139</span>
+                        </p>
+                        <p class="sub-note">40% OFF today</p>
+                    </div>
+                    <div class="qty-controls"
+                         data-name="Chicken Fry Biryani (1 plate)"
+                         data-price="139">
+                      <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                      <span class="qty-value">0</span>
+                      <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Card 3: Veg biryani (Veg) -->
+        <article class="product-card card-pop"
+                 data-category="veg">
+            <div class="product-image">
+                <img src="https://www.cookingcarnival.com/wp-content/uploads/2025/09/Vegetable-Dum-Biryani-5.jpg"
+                     alt="Veg Biryani">
+                <span class="badge badge-veg">Veg</span>
+            </div>
+            <div class="product-info">
+                <h3>Veg Biryani (1 plate)</h3>
+                <p class="product-desc">Loaded with veggies and aromatic spices for a lighter lunch.</p>
+                <div class="product-bottom">
+                    <div>
+                        <p class="price">
+                            <span class="old-price">₹199</span>
+                            <span class="offer-price">₹119</span>
+                        </p>
+                        <p class="sub-note">40% OFF today</p>
+                    </div>
+                    <div class="qty-controls"
+                         data-name="Veg Biryani (1 plate)"
+                         data-price="119">
+                      <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                      <span class="qty-value">0</span>
+                      <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Card 4: Egg biryani (Non-veg) -->
+        <article class="product-card card-pop"
+                 data-category="nonveg">
+            <div class="product-image">
+                <img src="https://kitchenflavours.net/wp-content/uploads/2017/10/Anda-biryani-banane-ki-recipe-easy.jpg"
+                     alt="Egg Biryani">
+                <span class="badge badge-nonveg">Non‑Veg</span>
+            </div>
+            <div class="product-info">
+                <h3>Egg Biryani (1 plate)</h3>
+                <p class="product-desc">Fluffy rice with masala eggs, a simple and tasty option.</p>
+                <div class="product-bottom">
+                    <div>
+                        <p class="price">
+                            <span class="old-price">₹215</span>
+                            <span class="offer-price">₹129</span>
+                        </p>
+                        <p class="sub-note">40% OFF today</p>
+                    </div>
+                    <div class="qty-controls"
+                         data-name="Egg Biryani (1 plate)"
+                         data-price="129">
+                      <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                      <span class="qty-value">0</span>
+                      <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Card 5: Veg Manchurian (Veg) -->
+ <!--       <article class="product-card card-pop"
+                 data-category="veg">
+            <div class="product-image">
+                <img src="https://b.zmtcdn.com/data/pictures/chains/4/21354074/1722948940f70e95ef-b50e-4376-bd5d-997a4f2b18b9.png?fit=around|960:500&crop=960:500;*,*"
+                     alt="Veg Manchurian">
+                <span class="badge badge-veg">Veg</span>
+            </div>
+            <div class="product-info">
+                <h3>Veg Manchurian</h3>
+                <p class="product-desc">Crispy veg balls in spicy sauce, perfect evening‑style snack.</p>
+                <div class="product-bottom">
+                    <div>
+                        <p class="price">
+                            <span class="old-price">₹165</span>
+                            <span class="offer-price">₹99</span>
+                        </p>
+                        <p class="sub-note">40% OFF today</p>
+                    </div>
+                    <div class="qty-controls"
+                         data-name="Veg Manchurian"
+                         data-price="99">
+                      <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                      <span class="qty-value">0</span>
+                      <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                    </div>
+                </div>
+            </div>
+        </article> -->
+		
+		<!-- Card 5: Veg Manchurian (Veg, OUT OF STOCK) -->
+<article class="product-card card-pop out-of-stock"
+         data-category="veg">
+    <div class="product-image">
+        <img src="https://b.zmtcdn.com/data/pictures/chains/4/21354074/1722948940f70e95ef-b50e-4376-bd5d-997a4f2b18b9.png?fit=around|960:500&crop=960:500;*,*"
+             alt="Veg Manchurian">
+        <span class="badge badge-veg">Veg</span>
+    </div>
+    <div class="product-info">
+        <h3>Veg Manchurian</h3>
+        <p class="product-desc">Crispy veg balls in spicy sauce, perfect evening‑style snack.</p>
+        <div class="product-bottom">
+            <div>
+                <p class="price">
+                    <span class="old-price">₹165</span>
+                    <span class="offer-price">₹99</span>
+                </p>
+                <p class="sub-note">Currently out of stock</p>
+            </div>
+            <div class="qty-controls"
+                 data-name="Veg Manchurian"
+                 data-price="99">
+              <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+              <span class="qty-value">0</span>
+              <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+            </div>
+        </div>
+    </div>
+</article>
+
+
+        <!-- Card 6: Chicken Noodles (Non-veg) -->
+        <article class="product-card card-pop"
+                 data-category="nonveg">
+            <div class="product-image">
+                <img src="https://img.taste.com.au/QRkWe_Eq/taste/2022/05/slow-cooker-kung-pao-chicken-noodles-178393-2.jpg"
+                     alt="Chicken Noodles">
+                <span class="badge badge-nonveg">Non‑Veg</span>
+            </div>
+            <div class="product-info">
+                <h3>Chicken Noodles</h3>
+                <p class="product-desc">Street‑style noodles tossed with chicken and vegetables.</p>
+                <div class="product-bottom">
+                    <div>
+                        <p class="price">
+                            <span class="old-price">₹165</span>
+                            <span class="offer-price">₹99</span>
+                        </p>
+                        <p class="sub-note">40% OFF today</p>
+                    </div>
+                    <div class="qty-controls"
+                         data-name="Chicken Noodles"
+                         data-price="99">
+                      <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                      <span class="qty-value">0</span>
+                      <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Card 7: Veg Noodles (Veg) -->
+        <article class="product-card card-pop"
+                 data-category="veg">
+            <div class="product-image">
+                <img src="https://shwetainthekitchen.com/wp-content/uploads/2023/03/vegetable-noodles.jpg"
+                     alt="Veg Noodles">
+                <span class="badge badge-veg">Veg</span>
+            </div>
+            <div class="product-info">
+                <h3>Veg Noodles</h3>
+                <p class="product-desc">Classic veg chowmein with capsicum, carrot and cabbage.</p>
+                <div class="product-bottom">
+                    <div>
+                        <p class="price">
+                            <span class="old-price">₹150</span>
+                            <span class="offer-price">₹90</span>
+                        </p>
+                        <p class="sub-note">40% OFF today</p>
+                    </div>
+                    <div class="qty-controls"
+                         data-name="Veg Noodles"
+                         data-price="90">
+                      <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                      <span class="qty-value">0</span>
+                      <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Card 8: Veg Fried Rice (Veg) -->
+        <article class="product-card card-pop out-of-stock"
+                 data-category="veg">
+            <div class="product-image">
+                <img src="https://shwetainthekitchen.com/wp-content/uploads/2023/06/veg-fried-rice.jpg"
+                     alt="Veg Fried Rice">
+                <span class="badge badge-veg">Veg</span>
+            </div>
+            <div class="product-info">
+                <h3>Veg Fried Rice</h3>
+                <p class="product-desc">Comfort fried rice loaded with mixed vegetables.</p>
+                <div class="product-bottom">
+                    <div>
+                        <p class="price">
+                            <span class="old-price">₹150</span>
+                            <span class="offer-price">₹90</span>
+                        </p>
+                        <p class="sub-note">40% OFF today</p>
+                    </div>
+                    <div class="qty-controls"
+                         data-name="Veg Fried Rice"
+                         data-price="90">
+                      <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                      <span class="qty-value">0</span>
+                      <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <!-- Cart section -->
+   <section class="cart">
+  <div class="cart-inner">
+    <h2>Your Cart (<span id="cartCount">0</span>)</h2>
+
+    <div class="cart-separator"></div>
+
+    <table id="cartTable">
+      <tbody id="cartItems"></tbody>
+    </table>
+
+    <div class="cart-totals">
+      <p class="total-text">
+        Items Total: ₹<span id="itemsTotal">0</span>
+      </p>
+
+      <p class="total-text">
+        Shipping:
+        <span class="old-price">₹40</span>
+        <span class="offer-price">₹0</span>
+      </p>
+
+      <p class="total-text">
+        Payable Total: ₹<span id="total">0</span>
+      </p>
+    </div>
+
+    <button id="orderBtn" class="pulse-btn" onclick="openOrderPopup()">Place Order</button>
+  </div>
+</section>
+
+
+</main>
+
+<!-- Order confirmation popup -->
+<div id="orderPopup" class="popup-overlay">
+  <div class="popup slide-up">
+    <h2>Confirm Order</h2>
+    <p>Order ID: <span id="popupOrderId"></span></p>
+    <label for="customerMobile">Mobile Number:</label>
+    <input type="text" id="customerMobile" placeholder="Enter your mobile number">
+    <div class="popup-buttons">
+      <button class="pulse-btn" onclick="confirmOrder()">Confirm &amp; WhatsApp</button>
+      <button class="cancel" onclick="closeOrderPopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
