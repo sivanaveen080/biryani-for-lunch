@@ -1,16 +1,17 @@
+// ---------------- GLOBAL STATE ----------------
+
 // cart will store objects like { name, price, qty }
 let cart = [];
 
-// auto-incrementing order id
-let currentOrderId = 0;
+// Google Apps Script Web App URL (POST endpoint)
+const ORDER_API_URL = 'https://script.google.com/macros/s/AKfycbybOkkOX5Q0JDO1mxVEueRIWBmaHtQOoyQTMua5kwQqWX93VuarrzhvBtkTufVVrsRESA/exec';
 
-// read last order id from browser storage so numbers continue after refresh
-const savedId = localStorage.getItem('lastOrderId');
-if (savedId) {
-  currentOrderId = parseInt(savedId, 10);
-}
+// holds the order id returned from Google Sheets (1, 2, 3, ...)
+let currentOrderId = null;
 
-// ---------------- ADD TO CART WITH QUANTITY (still usable if you want a simple Add button) ----------------
+
+// ---------------- ADD TO CART WITH QUANTITY ----------------
+
 function addToCart(name, price) {
   const existing = cart.find(item => item.name === name);
 
@@ -23,64 +24,59 @@ function addToCart(name, price) {
   updateCart();
 }
 
+
 // ---------------- CHANGE QTY FROM + / - BUTTONS ON CARD ----------------
+
 function changeQty(button, delta) {
   // block clicks on out-of-stock cards
   if (button.closest('.product-card')?.classList.contains('out-of-stock')) {
     return;
   }
 
-  // find the wrapper div for this product's quantity controls
   const wrapper = button.closest('.qty-controls');
-  const name = wrapper.getAttribute('data-name');                  // product name
-  const price = parseInt(wrapper.getAttribute('data-price'), 10);  // product price
-  const valueSpan = wrapper.querySelector('.qty-value');           // span showing current qty
+  const name = wrapper.getAttribute('data-name');
+  const price = parseInt(wrapper.getAttribute('data-price'), 10);
+  const valueSpan = wrapper.querySelector('.qty-value');
 
-  // current shown quantity
   let current = parseInt(valueSpan.textContent, 10);
   if (isNaN(current)) current = 0;
 
-  // calculate next quantity after +1 or -1
   let next = current + delta;
-  if (next < 0) next = 0; // do not go below 0
+  if (next < 0) next = 0;
 
-  // update number shown on the card
   valueSpan.textContent = next;
 
-  // update cart array
   const existing = cart.find(item => item.name === name);
 
   if (next === 0) {
-    // remove item from cart if exists
     if (existing) {
       cart = cart.filter(item => item.name !== name);
     }
   } else {
     if (existing) {
-      existing.qty = next; // set new quantity
+      existing.qty = next;
     } else {
       cart.push({ name, price, qty: next });
     }
   }
 
-  updateCart(); // refresh totals and cart list
+  updateCart();
 }
 
-// ---------------- UPDATE CART DISPLAY ----------------
-function updateCart() {
-  const cartItemsBody = document.getElementById('cartItems');   // <tbody> for rows
-  const cartCount = document.getElementById('cartCount');       // total items span
-  const itemsTotalSpan = document.getElementById('itemsTotal'); // items-only total
-  const totalSpan = document.getElementById('total');           // final payable total
 
-  // total quantity across all products
+// ---------------- UPDATE CART DISPLAY ----------------
+
+function updateCart() {
+  const cartItemsBody = document.getElementById('cartItems');
+  const cartCount = document.getElementById('cartCount');
+  const itemsTotalSpan = document.getElementById('itemsTotal');
+  const totalSpan = document.getElementById('total');
+
   const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
   cartCount.textContent = totalQty;
 
-  // build one <tr> per product with name + qty + line total in SAME cell
   cartItemsBody.innerHTML = cart.map((item) => {
-    const lineTotal = item.price * item.qty; // price * quantity
-    // Example row text: "Veg Noodles x2 - ₹180"
+    const lineTotal = item.price * item.qty;
     return `
       <tr>
         <td>${item.name} x${item.qty} - ₹${lineTotal}</td>
@@ -88,47 +84,40 @@ function updateCart() {
     `;
   }).join('');
 
-  // sum of all line totals (items only)
   const itemsTotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
 
-  // shipping charge is ₹40, but we will NOT add to final total (free for customer)
-  const shipping = 40;
+  const shipping = 40;              // not added to payable
+  const payableTotal = itemsTotal;  // free shipping
 
-  // what customer actually pays (you absorb shipping)
-  const payableTotal = itemsTotal;
-
-  // update numbers on screen
   itemsTotalSpan.textContent = itemsTotal;
   totalSpan.textContent = payableTotal;
 }
 
-// ---------------- OPEN POPUP AND CREATE ORDER ID ----------------
+
+// ---------------- OPEN / CLOSE POPUP ----------------
+
 function openOrderPopup() {
   if (cart.length === 0) {
     alert('Cart is empty!');
     return;
   }
 
-  // next sequential order id
-  currentOrderId += 1;
-  localStorage.setItem('lastOrderId', currentOrderId.toString());
-
-  // put id in popup and show it
-  document.getElementById('popupOrderId').textContent = currentOrderId;
+  // order id will be filled after saving to Google Sheet
+  document.getElementById('popupOrderId').textContent = '...';
   document.getElementById('orderPopup').style.display = 'flex';
 }
 
-// hide popup
 function closeOrderPopup() {
   document.getElementById('orderPopup').style.display = 'none';
 }
 
-// ---------------- CONFIRM ORDER + WHATSAPP MESSAGE ----------------
-function confirmOrder() {
+
+// ---------------- CONFIRM ORDER + SAVE TO SHEET + WHATSAPP ----------------
+
+async function confirmOrder() {
   const name = document.getElementById('customerName').value.trim();
   const mobile = document.getElementById('customerMobile').value.trim();
 
-  // basic name check
   if (!name) {
     alert('Please enter your name');
     return;
@@ -145,20 +134,52 @@ function confirmOrder() {
   const shipping = 40;
   const payableTotal = itemsTotal;
 
-  const itemsText = cart
+  // plain text items for saving in sheet
+  const itemsTextPlain = cart
     .map((item, i) =>
       `${i + 1}. ${item.name} x${item.qty} - ₹${item.price * item.qty}`
     )
-    .join('%0A');
+    .join('\n');
 
+  // 1) Send order to Google Apps Script, get incremental order_id
+  try {
+    const resp = await fetch(ORDER_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name,
+        mobile,
+        items: itemsTextPlain,
+        itemsTotal,
+        payableTotal
+      })
+    });
+
+    const data = await resp.json();
+    if (!data.success) {
+      alert('Error creating order id. Please try again.');
+      return;
+    }
+
+    currentOrderId = data.orderId;  // 1, 2, 3, ...
+    document.getElementById('popupOrderId').textContent = currentOrderId;
+
+  } catch (e) {
+    alert('Network error while creating order. Please try again.');
+    return;
+  }
+
+  // 2) Open WhatsApp with that order id
   const myWhatsAppNumber = '919912233382';
+
+  const itemsTextWA = encodeURIComponent(itemsTextPlain).replace(/%0A/g, '%0A');
 
   const message =
     `New Order%0A` +
     `Order ID: ${currentOrderId}%0A` +
     `Customer Name: ${encodeURIComponent(name)}%0A` +
     `Customer Mobile: ${mobile}%0A` +
-    `Items:%0A${itemsText}%0A` +
+    `Items:%0A${itemsTextWA}%0A` +
     `Items Total: ₹${itemsTotal}%0A` +
     `Shipping: ₹${shipping} (FREE given to customer)%0A` +
     `Payable Total: ₹${payableTotal}`;
@@ -173,24 +194,21 @@ function confirmOrder() {
 }
 
 
-
-
 // ---------------- FILTER LOGIC FOR TAG BUTTONS ----------------
+
 document.addEventListener('DOMContentLoaded', function () {
-  const tags = document.querySelectorAll('.tag');           // All filter buttons
-  const cards = document.querySelectorAll('.product-card'); // All product cards
+  const tags = document.querySelectorAll('.tag');
+  const cards = document.querySelectorAll('.product-card');
 
   tags.forEach(tag => {
     tag.addEventListener('click', () => {
-      // remove "active" from all tags
       tags.forEach(t => t.classList.remove('active'));
-      // add "active" to clicked tag
       tag.classList.add('active');
 
-      const filter = tag.getAttribute('data-filter'); // all / veg / nonveg / bestseller
+      const filter = tag.getAttribute('data-filter');
 
       cards.forEach(card => {
-        const category = card.getAttribute('data-category'); // veg or nonveg
+        const category = card.getAttribute('data-category');
         const isBest = card.getAttribute('data-bestseller') === 'true';
 
         let show = false;
