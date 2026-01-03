@@ -103,6 +103,7 @@ function closeOrderPopup() {
 }
 
 // ---------------- CONFIRM ORDER + SAVE TO SHEET + WHATSAPP ----------------
+// ---------------- CONFIRM ORDER + SAVE TO SHEET + WHATSAPP ----------------
 async function confirmOrder() {
   const name = document.getElementById('customerName').value.trim();
   const mobile = document.getElementById('customerMobile').value.trim();
@@ -170,4 +171,14 @@ async function confirmOrder() {
     `Customer Mobile: ${mobile}%0A` +
     `Items:%0A${itemsTextWA}%0A` +
     `Items Total: ₹${itemsTotal}%0A` +
-    `Shipping: ₹${shipping} (FREE given to cust
+    `Shipping: ₹${shipping} (FREE given to customer)%0A` +
+    `Payable Total: ₹${payableTotal}`;
+
+  const waUrl = `https://wa.me/${myWhatsAppNumber}?text=${message}`;
+
+  window.open(waUrl, '_blank');
+
+  cart = [];
+  updateCart();
+  closeOrderPopup();
+}
