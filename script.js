@@ -1,4 +1,3 @@
-
 // cart will store objects like { name, price, qty }
 let cart = [];
 
