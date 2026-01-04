@@ -9,6 +9,9 @@ const ORDER_API_URL = 'https://script.google.com/macros/s/AKfycbzJH2_CUx0BERMigL
 // holds the order id returned from Google Sheets (1, 2, 3, ...)
 let currentOrderId = null;
 
+// prevent double submit
+let isPlacingOrder = false;
+
 
 // ---------------- ADD TO CART WITH QUANTITY ----------------
 
@@ -102,7 +105,6 @@ function openOrderPopup() {
     return;
   }
 
-  // order id will be filled after saving to Google Sheet
   document.getElementById('popupOrderId').textContent = '...';
   document.getElementById('orderPopup').style.display = 'flex';
 }
@@ -115,17 +117,25 @@ function closeOrderPopup() {
 // ---------------- CONFIRM ORDER + SAVE TO SHEET + WHATSAPP ----------------
 
 async function confirmOrder() {
+  // guard against double-clicks / retries
+  if (isPlacingOrder) {
+    return;
+  }
+  isPlacingOrder = true;
+
   const name = document.getElementById('customerName').value.trim();
   const mobile = document.getElementById('customerMobile').value.trim();
 
   if (!name) {
     alert('Please enter your name');
+    isPlacingOrder = false;
     return;
   }
 
   const mobileRegex = /^[1-9]\d{9}$/;
   if (!mobileRegex.test(mobile)) {
     alert('Enter a valid 10-digit mobile number (cannot start with 0)');
+    isPlacingOrder = false;
     return;
   }
 
@@ -150,12 +160,13 @@ async function confirmOrder() {
 
     const resp = await fetch(ORDER_API_URL, {
       method: 'POST',
-      body: formData          // no headers -> simple POST (no OPTIONS)
+      body: formData          // simple POST (no OPTIONS)
     });
 
     const data = await resp.json();
     if (!data.success) {
       alert('Error creating order id. Please try again.');
+      isPlacingOrder = false;
       return;
     }
 
@@ -164,6 +175,7 @@ async function confirmOrder() {
 
   } catch (e) {
     alert('Network error while creating order. Please try again.');
+    isPlacingOrder = false;
     return;
   }
 
@@ -183,12 +195,12 @@ async function confirmOrder() {
     `Payable Total: ₹${payableTotal}`;
 
   const waUrl = `https://wa.me/${myWhatsAppNumber}?text=${message}`;
-
   window.open(waUrl, '_blank');
 
   cart = [];
   updateCart();
   closeOrderPopup();
+  isPlacingOrder = false;
 }
 
 
