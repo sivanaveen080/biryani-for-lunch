@@ -4,7 +4,7 @@
 let cart = [];
 
 // Google Apps Script Web App URL (POST endpoint)
-const ORDER_API_URL = 'https://script.google.com/macros/s/AKfycbwC9NsTt8-w2tNrbNCchxI4PWZFbTVVmoK7hHTQfNqFLsh5WFbKfWa-spXgHq7oFGvx6w/exec';
+const ORDER_API_URL = 'https://script.google.com/macros/s/AKfycbzJH2_CUx0BERMigLxykpXDtsHZwYccxuH_y-IUtREC9RMydUnaOGLXdIi6DNsV_9SH0g/exec';
 
 // holds the order id returned from Google Sheets (1, 2, 3, ...)
 let currentOrderId = null;
@@ -229,6 +229,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+
 
 
 
