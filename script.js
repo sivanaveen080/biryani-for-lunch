@@ -123,7 +123,6 @@ async function confirmOrder() {
     return;
   }
 
-  // mobile: only digits, 10 digits, cannot start with 0
   const mobileRegex = /^[1-9]\d{9}$/;
   if (!mobileRegex.test(mobile)) {
     alert('Enter a valid 10-digit mobile number (cannot start with 0)');
@@ -134,7 +133,6 @@ async function confirmOrder() {
   const shipping = 40;
   const payableTotal = itemsTotal;
 
-  // plain text items for saving in sheet
   const itemsTextPlain = cart
     .map((item, i) =>
       `${i + 1}. ${item.name} x${item.qty} - ₹${item.price * item.qty}`
@@ -143,16 +141,16 @@ async function confirmOrder() {
 
   // 1) Send order to Google Apps Script, get incremental order_id
   try {
+    const formData = new URLSearchParams();
+    formData.append('name', name);
+    formData.append('mobile', mobile);
+    formData.append('items', itemsTextPlain);
+    formData.append('itemsTotal', String(itemsTotal));
+    formData.append('payableTotal', String(payableTotal));
+
     const resp = await fetch(ORDER_API_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name,
-        mobile,
-        items: itemsTextPlain,
-        itemsTotal,
-        payableTotal
-      })
+      body: formData          // no headers -> simple POST (no OPTIONS)
     });
 
     const data = await resp.json();
@@ -231,6 +229,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+
 
 
 
