@@ -9,6 +9,9 @@ const ORDER_API_URL = 'https://script.google.com/macros/s/AKfycbwT3lfZAMDherJQrz
 // holds the order id returned from Google Sheets (1, 2, 3, ...)
 let currentOrderId = null;
 
+// prevent double submit
+let isPlacingOrder = false;
+
 
 // ---------------- ADD TO CART WITH QUANTITY ----------------
 
@@ -102,7 +105,6 @@ function openOrderPopup() {
     return;
   }
 
-  // order id will be filled after saving to Google Sheet
   document.getElementById('popupOrderId').textContent = '...';
   document.getElementById('orderPopup').style.display = 'flex';
 }
@@ -115,123 +117,25 @@ function closeOrderPopup() {
 // ---------------- CONFIRM ORDER + SAVE TO SHEET + WHATSAPP ----------------
 
 async function confirmOrder() {
+  if (isPlacingOrder) {
+    return; // ignore double-clicks / taps
+  }
+  isPlacingOrder = true;
+
   const name = document.getElementById('customerName').value.trim();
   const mobile = document.getElementById('customerMobile').value.trim();
 
   if (!name) {
     alert('Please enter your name');
+    isPlacingOrder = false;
     return;
   }
 
   const mobileRegex = /^[1-9]\d{9}$/;
   if (!mobileRegex.test(mobile)) {
     alert('Enter a valid 10-digit mobile number (cannot start with 0)');
+    isPlacingOrder = false;
     return;
   }
 
-  const itemsTotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-  const shipping = 40;
-  const payableTotal = itemsTotal;
-
-  const itemsTextPlain = cart
-    .map((item, i) =>
-      `${i + 1}. ${item.name} x${item.qty} - ₹${item.price * item.qty}`
-    )
-    .join('\n');
-
-  // 1) Send order to Google Apps Script, get incremental order_id
-  try {
-    const formData = new URLSearchParams();
-    formData.append('name', name);
-    formData.append('mobile', mobile);
-    formData.append('items', itemsTextPlain);
-    formData.append('itemsTotal', String(itemsTotal));
-    formData.append('payableTotal', String(payableTotal));
-
-    const resp = await fetch(ORDER_API_URL, {
-      method: 'POST',
-      body: formData          // no headers -> simple POST (no OPTIONS)
-    });
-
-    const data = await resp.json();
-    if (!data.success) {
-      alert('Error creating order id. Please try again.');
-      return;
-    }
-
-    currentOrderId = data.orderId;  // 1, 2, 3, ...
-    document.getElementById('popupOrderId').textContent = currentOrderId;
-
-  } catch (e) {
-    alert('Network error while creating order. Please try again.');
-    return;
-  }
-
-  // 2) Open WhatsApp with that order id
-  const myWhatsAppNumber = '919912233382';
-
-  const itemsTextWA = encodeURIComponent(itemsTextPlain).replace(/%0A/g, '%0A');
-
-  const message =
-    `New Order%0A` +
-    `Order ID: ${currentOrderId}%0A` +
-    `Customer Name: ${encodeURIComponent(name)}%0A` +
-    `Customer Mobile: ${mobile}%0A` +
-    `Items:%0A${itemsTextWA}%0A` +
-    `Items Total: ₹${itemsTotal}%0A` +
-    `Shipping: ₹${shipping} (FREE given to customer)%0A` +
-    `Payable Total: ₹${payableTotal}`;
-
-  const waUrl = `https://wa.me/${myWhatsAppNumber}?text=${message}`;
-
-  window.open(waUrl, '_blank');
-
-  cart = [];
-  updateCart();
-  closeOrderPopup();
-}
-
-
-// ---------------- FILTER LOGIC FOR TAG BUTTONS ----------------
-
-document.addEventListener('DOMContentLoaded', function () {
-  const tags = document.querySelectorAll('.tag');
-  const cards = document.querySelectorAll('.product-card');
-
-  tags.forEach(tag => {
-    tag.addEventListener('click', () => {
-      tags.forEach(t => t.classList.remove('active'));
-      tag.classList.add('active');
-
-      const filter = tag.getAttribute('data-filter');
-
-      cards.forEach(card => {
-        const category = card.getAttribute('data-category');
-        const isBest = card.getAttribute('data-bestseller') === 'true';
-
-        let show = false;
-        if (filter === 'all') {
-          show = true;
-        } else if (filter === 'veg') {
-          show = category === 'veg';
-        } else if (filter === 'nonveg') {
-          show = category === 'nonveg';
-        } else if (filter === 'bestseller') {
-          show = isBest;
-        }
-
-        if (show) {
-          card.classList.remove('hidden');
-        } else {
-          card.classList.add('hidden');
-        }
-      });
-    });
-  });
-});
-
-
-
-
-
-
+  const itemsTotal = cart.re
