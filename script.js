@@ -216,4 +216,60 @@ async function confirmOrder() {
 
   const itemsTextWA = encodeURIComponent(itemsTextPlain).replace(/%0A/g, '%0A');
 
-  const mes
+  const message =
+    `New Order%0A` +
+    `Order ID: ${currentOrderId}%0A` +
+    `Customer Name: ${encodeURIComponent(name)}%0A` +
+    `Customer Mobile: ${mobile}%0A` +
+    `Items:%0A${itemsTextWA}%0A` +
+    `Items Total: ₹${itemsTotal}%0A` +
+    `Shipping: ₹${shipping} (FREE given to customer)%0A` +
+    `Payable Total: ₹${payableTotal}`;
+
+  const waUrl = `https://wa.me/${myWhatsAppNumber}?text=${message}`;
+  window.open(waUrl, '_blank');
+
+  cart = [];
+  updateCart();
+  closeOrderPopup();
+  isPlacingOrder = false;
+}
+
+
+// ---------------- FILTER LOGIC FOR TAG BUTTONS ----------------
+
+document.addEventListener('DOMContentLoaded', function () {
+  const tags = document.querySelectorAll('.tag');
+  const cards = document.querySelectorAll('.product-card');
+
+  tags.forEach(tag => {
+    tag.addEventListener('click', () => {
+      tags.forEach(t => t.classList.remove('active'));
+      tag.classList.add('active');
+
+      const filter = tag.getAttribute('data-filter');
+
+      cards.forEach(card => {
+        const category = card.getAttribute('data-category');
+        const isBest = card.getAttribute('data-bestseller') === 'true';
+
+        let show = false;
+        if (filter === 'all') {
+          show = true;
+        } else if (filter === 'veg') {
+          show = category === 'veg';
+        } else if (filter === 'nonveg') {
+          show = category === 'nonveg';
+        } else if (filter === 'bestseller') {
+          show = isBest;
+        }
+
+        if (show) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+});
