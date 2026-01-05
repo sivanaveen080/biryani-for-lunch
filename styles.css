@@ -481,7 +481,6 @@ button:hover {
   margin-top: 4px;
 }
 
-
 /* contact line in popup */
 .popup-contact {
   font-size: 12px;
@@ -498,13 +497,6 @@ button:hover {
   text-decoration: underline;
 }
 
-/* small screens: stack top bar */
-@media (max-width: 600px) {
-  .top-info-bar {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
 /* Footer */
 .site-footer {
   background: #0f172a;
@@ -566,4 +558,3 @@ button:hover {
     white-space: normal;
   }
 }
-
