@@ -473,5 +473,10 @@ button:hover {
   font-weight: bold;
 }
 
+.delivery-note {
+  font-size: 13px;
+  color: #16a34a;
+  margin-top: 4px;
+}
 
 
