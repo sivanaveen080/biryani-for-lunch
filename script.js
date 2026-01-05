@@ -1,11 +1,10 @@
-Please update the JS changes in the below script and give me 
 // ---------------- GLOBAL STATE ----------------
 
 // cart will store objects like { name, price, qty }
 let cart = [];
 
 // Google Apps Script Web App URL (POST endpoint)
-const ORDER_API_URL = 'https://script.google.com/macros/s/AKfycbwL8FEX_uLUrylJMb9HivMK7fv-TgML9-S_oGdhujJItvlNSOyEK8TZOQ7EBD3v-4PPFg/exec';
+const ORDER_API_URL = 'https://script.google.com/macros/s/AKfycbzJH2_CUx0BERMigLxykpXDtsHZwYccxuH_y-IUtREC9RMydUnaOGLXdIi6DNsV_9SH0g/exec';
 
 // holds the order id returned from Google Sheets (1, 2, 3, ...)
 let currentOrderId = null;
