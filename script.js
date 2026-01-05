@@ -213,7 +213,7 @@ async function confirmOrder() {
   }
 
   // 2) Open WhatsApp with that order id
-  const myWhatsAppNumber = '919912233382';
+  const myWhatsAppNumber = '919494961597';
 
   const itemsTextWA = encodeURIComponent(itemsTextPlain).replace(/%0A/g, '%0A');
 
@@ -274,6 +274,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+
 
 
 
