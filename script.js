@@ -22,7 +22,7 @@ function isWithinOrderingWindow() {
   const m = now.getMinutes();
   const minutes = h * 60 + m;
 
-  const start = 21 * 60;        // 22:00 -> 1320
+  const start = 16 * 60;        // 22:00 -> 1320
   const end = 11 * 60 + 30;     // 11:30 -> 690
 
   // range crosses midnight: valid if time >= start OR time <= end
@@ -125,7 +125,7 @@ function openOrderPopup() {
   // allow orders only from 10:00 PM to next day 11:30 AM
   if (!isWithinOrderingWindow()) {
     alert(
-      'Orders can be placed only between 10:00 PM and next day 11:30 AM.\n' +
+      'Orders can be placed only between 04:00 PM and next day 11:30 AM.\n' +
       'Sorry..! please visit again during that time window.'
     );
     return;
@@ -274,6 +274,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+
 
 
 
