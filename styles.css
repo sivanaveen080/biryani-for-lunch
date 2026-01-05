@@ -558,3 +558,13 @@ button:hover {
     white-space: normal;
   }
 }
+
+/* Legal popup body text */
+#legalBody {
+  font-size: 13px;
+  color: #374151;
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+
