@@ -126,7 +126,7 @@ function openOrderPopup() {
   if (!isWithinOrderingWindow()) {
     alert(
       'Orders can be placed only between 10:00 PM and next day 11:30 AM.\n' +
-      'Please visit again during that time window.'
+      'Thank you please visit again during that time window.'
     );
     return;
   }
@@ -274,3 +274,4 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+
