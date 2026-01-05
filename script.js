@@ -4,7 +4,7 @@
 let cart = [];
 
 // Google Apps Script Web App URL (POST endpoint)
-const ORDER_API_URL = 'https://script.google.com/macros/s/AKfycbzJH2_CUx0BERMigLxykpXDtsHZwYccxuH_y-IUtREC9RMydUnaOGLXdIi6DNsV_9SH0g/exec';
+const ORDER_API_URL = 'https://script.google.com/macros/s/AKfycbwzYkES0Im3CCxb6aJAI13TVpMiqI7Mc0RvCZRAieV8qP1yG_Yd313SLWJ9t3ZdFFnbMQ/exec';
 
 // holds the order id returned from Google Sheets (1, 2, 3, ...)
 let currentOrderId = null;
@@ -302,3 +302,4 @@ function closeLegal() {
     popup.style.display = 'none';
   }
 }
+
