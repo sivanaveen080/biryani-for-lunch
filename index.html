@@ -7,6 +7,22 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+<!-- TOP INFO BAR: location + contact -->
+<div class="top-info-bar">
+  <span class="top-location">
+    Delivery location:&nbsp;
+    <a href="https://www.google.com/maps?q=Rajapushpa+Paradigm+ISB+Road+Financial+District+Nanakramguda+Hyderabad+Telangana+500032"
+       target="_blank" rel="noopener">
+      Rajapushpa Paradigm, ISB Road, Financial District, Nanakramguda, Hyderabad, Telangana 500032
+    </a>
+  </span>
+  <span class="top-contact">
+    Contact us:&nbsp;
+    <a href="tel:+919912233382">+91 99122 33382</a>
+  </span>
+</div>
+
 <header class="hero">
     <div class="hero-content">
         <h1 class="main-title">BIRYANI FOR LUNCH</h1>
@@ -90,7 +106,7 @@
             </div>
         </article>
 
-        <!-- Card 3: Veg biryani (Veg) -->
+        <!-- Card 3: Veg biryani (Veg, OUT OF STOCK) -->
         <article class="product-card card-pop out-of-stock"
                  data-category="veg">
             <div class="product-image">
@@ -120,7 +136,7 @@
             </div>
         </article>
 
-        <!-- Card 4: Egg biryani (Non-veg) -->
+        <!-- Card 4: Egg biryani (Non-veg, OUT OF STOCK) -->
         <article class="product-card card-pop out-of-stock"
                  data-category="nonveg">
             <div class="product-image">
@@ -150,8 +166,8 @@
             </div>
         </article>
 
-        <!-- Card 5: Veg Manchurian (Veg) -->
- <!--       <article class="product-card card-pop out-of-stock"
+        <!-- Card 5: Veg Manchurian (Veg, OUT OF STOCK) -->
+        <article class="product-card card-pop out-of-stock"
                  data-category="veg">
             <div class="product-image">
                 <img src="https://b.zmtcdn.com/data/pictures/chains/4/21354074/1722948940f70e95ef-b50e-4376-bd5d-997a4f2b18b9.png?fit=around|960:500&crop=960:500;*,*"
@@ -167,7 +183,7 @@
                             <span class="old-price">₹165</span>
                             <span class="offer-price">₹99</span>
                         </p>
-                        <p class="sub-note">40% OFF today</p>
+                        <p class="sub-note">Currently out of stock</p>
                     </div>
                     <div class="qty-controls"
                          data-name="Veg Manchurian"
@@ -178,40 +194,9 @@
                     </div>
                 </div>
             </div>
-        </article> -->
-		
-		<!-- Card 5: Veg Manchurian (Veg, OUT OF STOCK) -->
-<article class="product-card card-pop out-of-stock"
-         data-category="veg">
-    <div class="product-image">
-        <img src="https://b.zmtcdn.com/data/pictures/chains/4/21354074/1722948940f70e95ef-b50e-4376-bd5d-997a4f2b18b9.png?fit=around|960:500&crop=960:500;*,*"
-             alt="Veg Manchurian">
-        <span class="badge badge-veg">Veg</span>
-    </div>
-    <div class="product-info">
-        <h3>Veg Manchurian</h3>
-        <p class="product-desc">Crispy veg balls in spicy sauce, perfect evening‑style snack.</p>
-        <div class="product-bottom">
-            <div>
-                <p class="price">
-                    <span class="old-price">₹165</span>
-                    <span class="offer-price">₹99</span>
-                </p>
-                <p class="sub-note">Currently out of stock</p>
-            </div>
-            <div class="qty-controls"
-                 data-name="Veg Manchurian"
-                 data-price="99">
-              <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
-              <span class="qty-value">0</span>
-              <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
-            </div>
-        </div>
-    </div>
-</article>
+        </article>
 
-
-        <!-- Card 6: Chicken Noodles (Non-veg) -->
+        <!-- Card 6: Chicken Noodles (Non-veg, OUT OF STOCK) -->
         <article class="product-card card-pop out-of-stock"
                  data-category="nonveg">
             <div class="product-image">
@@ -241,7 +226,7 @@
             </div>
         </article>
 
-        <!-- Card 7: Veg Noodles (Veg) -->
+        <!-- Card 7: Veg Noodles (Veg, OUT OF STOCK) -->
         <article class="product-card card-pop out-of-stock"
                  data-category="veg">
             <div class="product-image">
@@ -271,7 +256,7 @@
             </div>
         </article>
 
-        <!-- Card 8: Veg Fried Rice (Veg) -->
+        <!-- Card 8: Veg Fried Rice (Veg, OUT OF STOCK) -->
         <article class="product-card card-pop out-of-stock"
                  data-category="veg">
             <div class="product-image">
@@ -303,44 +288,41 @@
     </section>
 
     <!-- Cart section -->
-   <section class="cart">
-  <div class="cart-inner">
-    <h2>Your Cart (<span id="cartCount">0</span>)</h2>
+    <section class="cart">
+      <div class="cart-inner">
+        <h2>Your Cart (<span id="cartCount">0</span>)</h2>
 
-    <div class="cart-separator"></div>
+        <div class="cart-separator"></div>
 
-    <table id="cartTable">
-      <tbody id="cartItems"></tbody>
-    </table>
+        <table id="cartTable">
+          <tbody id="cartItems"></tbody>
+        </table>
 
-    <div class="cart-totals">
-      <p class="total-text">
-        Items Total: ₹<span id="itemsTotal">0</span>
-      </p>
+        <div class="cart-totals">
+          <p class="total-text">
+            Items Total: ₹<span id="itemsTotal">0</span>
+          </p>
 
-      <p class="total-text">
-        Shipping:
-        <span class="old-price">₹40</span>
-        <span class="offer-price">₹0</span>
-      </p>
+          <p class="total-text">
+            Shipping:
+            <span class="old-price">₹40</span>
+            <span class="offer-price">₹0</span>
+          </p>
 
-      <p class="total-text">
-        Payable Total: ₹<span id="total">0</span>
-      </p>
-    </div>
+          <p class="total-text">
+            Payable Total: ₹<span id="total">0</span>
+          </p>
+        </div>
 
-    <button id="orderBtn" class="pulse-btn" onclick="openOrderPopup()">Place Order</button>
-  </div>
-</section>
-
-
+        <button id="orderBtn" class="pulse-btn" onclick="openOrderPopup()">Place Order</button>
+      </div>
+    </section>
 </main>
 
 <!-- Order confirmation popup -->
 <div id="orderPopup" class="popup-overlay">
   <div class="popup slide-up">
     <h2>Confirm Order</h2>
-	
     <p>Order ID: <span id="popupOrderId"></span></p>
 
     <label for="customerName">Name:</label>
@@ -349,10 +331,13 @@
     <label for="customerMobile">Mobile Number:</label>
     <input type="text" id="customerMobile" placeholder="10-digit mobile number">
 
+    <p id="deliveryInfo" class="delivery-note"></p>
 
-<p id="deliveryInfo" class="delivery-note"></p> <!-- delivery note goes here -->
+    <p class="popup-contact">
+      For any help, call
+      <a href="tel:+919912233382">+91 99122 33382</a>
+    </p>
 
-	  
     <div class="popup-buttons">
       <button class="pulse-btn" onclick="confirmOrder()">Confirm &amp; WhatsApp</button>
       <button class="cancel" onclick="closeOrderPopup()">Cancel</button>
@@ -363,11 +348,3 @@
 <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
