@@ -1,3 +1,4 @@
+Please update the JS changes in the below script and give me 
 // ---------------- GLOBAL STATE ----------------
 
 // cart will store objects like { name, price, qty }
@@ -11,23 +12,6 @@ let currentOrderId = null;
 
 // prevent double submit
 let isPlacingOrder = false;
-
-
-// ---------------- ORDERING TIME WINDOW ----------------
-
-// Returns true if current local time is between 16:00 and next-day 11:30
-function isWithinOrderingWindow() {
-  const now = new Date();
-  const h = now.getHours();
-  const m = now.getMinutes();
-  const minutes = h * 60 + m;
-
-  const start = 16 * 60;        // 16:00 -> 960 minutes
-  const end = 11 * 60 + 30;     // 11:30 -> 690 minutes
-
-  // Window crosses midnight: valid if time >= start OR time <= end
-  return minutes >= start || minutes <= end;
-}
 
 
 // ---------------- ADD TO CART WITH QUANTITY ----------------
@@ -120,21 +104,6 @@ function openOrderPopup() {
   if (cart.length === 0) {
     alert('Cart is empty!');
     return;
-  }
-
-  // allow orders only from 4:00 PM to next-day 11:30 AM
-  if (!isWithinOrderingWindow()) {
-    alert(
-      'Orders can be placed only between 4:00 PM and next day 11:30 AM.\n' +
-      'Please visit again during that time window.'
-    );
-    return;
-  }
-
-  // set delivery information text on the popup
-  const infoEl = document.getElementById('deliveryInfo');
-  if (infoEl) {
-    infoEl.textContent = 'Orders will be delivered between 1:30 PM and 3:00 PM.';
   }
 
   document.getElementById('popupOrderId').textContent = '...';
