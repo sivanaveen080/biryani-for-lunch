@@ -15,7 +15,7 @@ let isPlacingOrder = false;
 
 // ---------------- ORDERING TIME WINDOW ----------------
 
-// true if current time is between 22:00 (10 PM) and next-day 11:30
+// true if current time is between 16:00 (04 PM) and next-day 11:30
 function isWithinOrderingWindow() {
   const now = new Date();
   const h = now.getHours();
@@ -122,7 +122,7 @@ function openOrderPopup() {
     return;
   }
 
-  // allow orders only from 10:00 PM to next day 11:30 AM
+  // allow orders only from 04:00 PM to next day 11:30 AM
   if (!isWithinOrderingWindow()) {
     alert(
       'Orders can be placed only between 04:00 PM and next day 11:30 AM.\n' +
@@ -274,6 +274,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+
 
 
 
