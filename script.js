@@ -13,6 +13,23 @@ let currentOrderId = null;
 let isPlacingOrder = false;
 
 
+// ---------------- ORDERING TIME WINDOW ----------------
+
+// true if current time is between 16:00 and next-day 11:30
+function isWithinOrderingWindow() {
+  const now = new Date();
+  const h = now.getHours();
+  const m = now.getMinutes();
+  const minutes = h * 60 + m;
+
+  const start = 16 * 60;        // 16:00 -> 960
+  const end = 11 * 60 + 30;     // 11:30 -> 690
+
+  // range crosses midnight: valid if time >= start OR time <= end
+  return minutes >= start || minutes <= end;
+}
+
+
 // ---------------- ADD TO CART WITH QUANTITY ----------------
 
 function addToCart(name, price) {
@@ -105,7 +122,23 @@ function openOrderPopup() {
     return;
   }
 
+  // allow orders only from 4:00 PM to next day 11:30 AM
+  if (!isWithinOrderingWindow()) {
+    alert(
+      'Orders can be placed only between 4:00 PM and next day 11:30 AM.\n' +
+      'Please visit again during that time window.'
+    );
+    return;
+  }
+
   document.getElementById('popupOrderId').textContent = '...';
+
+  // set delivery information text on the popup
+  const infoEl = document.getElementById('deliveryInfo');
+  if (infoEl) {
+    infoEl.textContent = 'Orders will be delivered between 1:30 PM and 3:00 PM.';
+  }
+
   document.getElementById('orderPopup').style.display = 'flex';
 }
 
