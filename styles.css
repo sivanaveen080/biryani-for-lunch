@@ -484,9 +484,18 @@ button:hover {
   color: #f9fafb;
   padding: 6px 12px;
   font-size: 12px;
+
   display: flex;
-  justify-content: flex-end;   /* everything to the right */
-  gap: 16px;                   /* space between address and contact */
+  justify-content: flex-end;   /* move everything to the right */
+  align-items: center;
+}
+
+.top-location {
+  white-space: nowrap;         /* keep address on one line */
+}
+
+.top-contact {
+  display: none;               /* hide left “Contact us” if you only want address */
 }
 
 .top-info-bar a {
@@ -498,10 +507,6 @@ button:hover {
   text-decoration: underline;
 }
 
-.top-location,
-.top-contact {
-  white-space: nowrap;         /* keep each part in one line */
-}
 
 
 /* delivery note in popup */
@@ -534,6 +539,7 @@ button:hover {
     align-items: flex-start;
   }
 }
+
 
 
 
