@@ -1,4 +1,3 @@
-Please update the JS changes in the below script and give me 
 // ---------------- GLOBAL STATE ----------------
 
 // cart will store objects like { name, price, qty }
