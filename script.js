@@ -15,14 +15,14 @@ let isPlacingOrder = false;
 
 // ---------------- ORDERING TIME WINDOW ----------------
 
-// true if current time is between 16:00 and next-day 11:30
+// true if current time is between 22:00 (10 PM) and next-day 11:30
 function isWithinOrderingWindow() {
   const now = new Date();
   const h = now.getHours();
   const m = now.getMinutes();
   const minutes = h * 60 + m;
 
-  const start = 22 * 60;        // 16:00 -> 960
+  const start = 22 * 60;        // 22:00 -> 1320
   const end = 11 * 60 + 30;     // 11:30 -> 690
 
   // range crosses midnight: valid if time >= start OR time <= end
@@ -122,10 +122,10 @@ function openOrderPopup() {
     return;
   }
 
-  // allow orders only from 4:00 PM to next day 11:30 AM
+  // allow orders only from 10:00 PM to next day 11:30 AM
   if (!isWithinOrderingWindow()) {
     alert(
-      'Orders can be placed only between 4:00 PM and next day 11:30 AM.\n' +
+      'Orders can be placed only between 10:00 PM and next day 11:30 AM.\n' +
       'Please visit again during that time window.'
     );
     return;
@@ -193,7 +193,7 @@ async function confirmOrder() {
 
     const resp = await fetch(ORDER_API_URL, {
       method: 'POST',
-      body: formData          // simple POST (no OPTIONS)
+      body: formData
     });
 
     const data = await resp.json();
@@ -274,5 +274,3 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
-
-
