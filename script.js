@@ -22,7 +22,7 @@ function isWithinOrderingWindow() {
   const m = now.getMinutes();
   const minutes = h * 60 + m;
 
-  const start = 22 * 60;        // 22:00 -> 1320
+  const start = 21 * 60;        // 22:00 -> 1320
   const end = 11 * 60 + 30;     // 11:30 -> 690
 
   // range crosses midnight: valid if time >= start OR time <= end
@@ -274,6 +274,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+
 
 
 
