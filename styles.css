@@ -220,7 +220,6 @@ body {
   color: #e65100;
 }
 
-
 .sub-note {
   margin: 2px 0 0 0;
   font-size: 11px;
@@ -350,6 +349,7 @@ button:hover {
 .product-card.hidden {
   display: none;
 }
+
 /* Cart lines: product + qty + amount */
 #cartTable {
   width: 100%;
@@ -362,7 +362,7 @@ button:hover {
   text-align: left;      /* force to left side */
   font-weight: bold;     /* make the whole line bold */
 }
-/* quantity contro; */
+
 /* quantity control box */
 .qty-controls {
   display: inline-flex;
@@ -402,6 +402,7 @@ button:hover {
   font-size: 14px;
   padding: 0 4px;
 }
+
 /* Cart wrapper as a card */
 .cart {
   margin-top: 30px;
@@ -473,12 +474,14 @@ button:hover {
   font-weight: bold;
 }
 
+/* delivery note in popup */
 .delivery-note {
   font-size: 13px;
   color: #16a34a;
   margin-top: 4px;
 }
 
+/* TOP INFO BAR: address on the right */
 .top-info-bar {
   background: #111827;
   color: #f9fafb;
@@ -486,16 +489,18 @@ button:hover {
   font-size: 12px;
 
   display: flex;
-  justify-content: flex-end;   /* move everything to the right */
+  justify-content: flex-end;   /* push everything to right */
   align-items: center;
+  gap: 16px;
 }
 
-.top-location {
-  white-space: nowrap;         /* keep address on one line */
+.top-location,
+.top-contact {
+  white-space: nowrap;
 }
 
 .top-contact {
-  display: none;               /* hide left “Contact us” if you only want address */
+  display: none;               /* hide phone text in top bar; keep only address */
 }
 
 .top-info-bar a {
@@ -505,15 +510,6 @@ button:hover {
 
 .top-info-bar a:hover {
   text-decoration: underline;
-}
-
-
-
-/* delivery note in popup */
-.delivery-note {
-  font-size: 13px;
-  color: #16a34a;
-  margin-top: 4px;
 }
 
 /* contact line in popup */
@@ -539,7 +535,3 @@ button:hover {
     align-items: flex-start;
   }
 }
-
-
-
-
