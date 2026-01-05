@@ -485,9 +485,8 @@ button:hover {
   padding: 6px 12px;
   font-size: 12px;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 6px;
+  justify-content: flex-end;   /* everything to the right */
+  gap: 16px;                   /* space between address and contact */
 }
 
 .top-info-bar a {
@@ -501,9 +500,9 @@ button:hover {
 
 .top-location,
 .top-contact {
-  display: flex;
-  align-items: center;
+  white-space: nowrap;         /* keep each part in one line */
 }
+
 
 /* delivery note in popup */
 .delivery-note {
@@ -535,5 +534,6 @@ button:hover {
     align-items: flex-start;
   }
 }
+
 
 
