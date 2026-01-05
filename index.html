@@ -330,6 +330,17 @@
   </div>
 </div>
 
+<!-- Legal popup for Terms & Privacy -->
+<div id="legalPopup" class="popup-overlay">
+  <div class="popup slide-up">
+    <h2 id="legalTitle"></h2>
+    <p id="legalBody"></p>
+    <div class="popup-buttons">
+      <button class="pulse-btn" onclick="closeLegal()">Close</button>
+    </div>
+  </div>
+</div>
+
 <!-- Footer: delivery location + contact + links -->
 <footer class="site-footer">
   <div class="footer-top">
@@ -348,9 +359,9 @@
   <div class="footer-bottom">
     <span>© 2026 Biryani For Lunch. All rights reserved.</span>
     <span class="footer-links">
-      <a href="#">Terms &amp; Conditions</a>
+      <a href="#" onclick="openLegal('terms'); return false;">Terms &amp; Conditions</a>
       <span class="dot">•</span>
-      <a href="#">Privacy Policy</a>
+      <a href="#" onclick="openLegal('privacy'); return false;">Privacy Policy</a>
     </span>
   </div>
 </footer>
@@ -358,4 +369,3 @@
 <script src="script.js"></script>
 </body>
 </html>
-
