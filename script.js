@@ -37,9 +37,12 @@ function changeQty(button, delta) {
   }
 
   const wrapper = button.closest('.qty-controls');
+  if (!wrapper) return;
+
   const name = wrapper.getAttribute('data-name');
   const price = parseInt(wrapper.getAttribute('data-price'), 10);
   const valueSpan = wrapper.querySelector('.qty-value');
+  if (!valueSpan || !name || isNaN(price)) return;
 
   let current = parseInt(valueSpan.textContent, 10);
   if (isNaN(current)) current = 0;
@@ -75,6 +78,8 @@ function updateCart() {
   const itemsTotalSpan = document.getElementById('itemsTotal');
   const totalSpan = document.getElementById('total');
 
+  if (!cartItemsBody || !cartCount || !itemsTotalSpan || !totalSpan) return;
+
   const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
   cartCount.textContent = totalQty;
 
@@ -105,12 +110,17 @@ function openOrderPopup() {
     return;
   }
 
-  document.getElementById('popupOrderId').textContent = '...';
-  document.getElementById('orderPopup').style.display = 'flex';
+  const popup = document.getElementById('orderPopup');
+  const orderIdSpan = document.getElementById('popupOrderId');
+  if (!popup || !orderIdSpan) return;
+
+  orderIdSpan.textContent = '...';
+  popup.style.display = 'flex';
 }
 
 function closeOrderPopup() {
-  document.getElementById('orderPopup').style.display = 'none';
+  const popup = document.getElementById('orderPopup');
+  if (popup) popup.style.display = 'none';
 }
 
 
@@ -123,8 +133,8 @@ async function confirmOrder() {
   }
   isPlacingOrder = true;
 
-  const name = document.getElementById('customerName').value.trim();
-  const mobile = document.getElementById('customerMobile').value.trim();
+  const name = document.getElementById('customerName')?.value.trim();
+  const mobile = document.getElementById('customerMobile')?.value.trim();
 
   if (!name) {
     alert('Please enter your name');
@@ -135,6 +145,12 @@ async function confirmOrder() {
   const mobileRegex = /^[1-9]\d{9}$/;
   if (!mobileRegex.test(mobile)) {
     alert('Enter a valid 10-digit mobile number (cannot start with 0)');
+    isPlacingOrder = false;
+    return;
+  }
+
+  if (cart.length === 0) {
+    alert('Cart is empty!');
     isPlacingOrder = false;
     return;
   }
@@ -171,7 +187,8 @@ async function confirmOrder() {
     }
 
     currentOrderId = data.orderId;  // 1, 2, 3, ...
-    document.getElementById('popupOrderId').textContent = currentOrderId;
+    const orderIdSpan = document.getElementById('popupOrderId');
+    if (orderIdSpan) orderIdSpan.textContent = currentOrderId;
 
   } catch (e) {
     alert('Network error while creating order. Please try again.');
