@@ -22,7 +22,7 @@ function isWithinOrderingWindow() {
   const m = now.getMinutes();
   const minutes = h * 60 + m;
 
-  const start = 16 * 60;        // 22:00 -> 1320
+  const start = 16 * 60;        // 16:00 -> 960
   const end = 11 * 60 + 30;     // 11:30 -> 690
 
   // range crosses midnight: valid if time >= start OR time <= end
@@ -276,8 +276,29 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+// ---------------- LEGAL POPUP (TERMS & PRIVACY) ----------------
 
+function openLegal(type) {
+  const popup = document.getElementById('legalPopup');
+  const title = document.getElementById('legalTitle');
+  const body  = document.getElementById('legalBody');
 
+  if (type === 'terms') {
+    title.textContent = 'Terms & Conditions';
+    body.textContent =
+      'Orders are for same-day lunch delivery within Rajapushpa Paradigm. Please confirm your order on WhatsApp. Payment is collected at delivery.';
+  } else {
+    title.textContent = 'Privacy Policy';
+    body.textContent =
+      'Your name and mobile number are used only to confirm and deliver your lunch order. Your details are not shared with third parties.';
+  }
 
+  popup.style.display = 'flex';
+}
 
-
+function closeLegal() {
+  const popup = document.getElementById('legalPopup');
+  if (popup) {
+    popup.style.display = 'none';
+  }
+}
