@@ -152,133 +152,126 @@
             </div>
         </article>
 
-        <!-- Chicken Fry (Half / Full in one card) -->
-<article class="product-card card-pop"
-         data-category="starters">
-  <div class="product-image">
-    <img src="https://www.indianhealthyrecipes.com/wp-content/uploads/2021/06/chicken-fry.jpg"
-         alt="Chicken Fry">
-    <span class="badge badge-nonveg">Non‑Veg</span>
-    <span class="badge badge-bestseller">Best Seller</span>
-  </div>
-  <div class="product-info">
-    <h3>Chicken Fry</h3>
-    <p class="product-desc">Crispy, spicy chicken fry starter. Choose Half or Full.</p>
+        <!-- Chicken Fry starter (Half / Full) -->
+        <article class="product-card card-pop"
+                 data-category="starters">
+          <div class="product-image">
+            <img src="chicken fry.jpg"
+                 alt="Chicken Fry">
+            <span class="badge badge-nonveg">Non‑Veg</span>
+            <span class="badge badge-bestseller">Best Seller</span>
+          </div>
+          <div class="product-info">
+            <h3>Chicken Fry</h3>
+            <p class="product-desc">Crispy, spicy chicken fry starter. Choose Half or Full.</p>
 
-    <!-- Size selector -->
-    <div style="margin-bottom: 8px;">
-      <label style="font-size: 12px; color: #555;">Choose size:</label>
-      <select id="chickenFrySize"
-              style="margin-left: 6px; padding: 4px 6px; font-size: 12px; border-radius: 6px; border: 1px solid #ccc;">
-        <option value="half" data-price="120">Half (₹120)</option>
-        <option value="full" data-price="240">Full (₹240)</option>
-      </select>
-    </div>
+            <div class="starter-size-row">
+              <label class="starter-size-label">Choose size:</label>
+              <select id="starterChickenFrySize" class="starter-size-select">
+                <option value="half" data-price="120">Half (₹120)</option>
+                <option value="full" data-price="240">Full (₹240)</option>
+              </select>
+            </div>
 
-    <div class="product-bottom">
-      <!-- price display (optional, auto-updated) -->
-      <div>
-        <p class="price">
-          <span class="offer-price" id="chickenFryPrice">₹120</span>
-        </p>
-        <p class="sub-note">Starter serving</p>
-      </div>
+            <div class="product-bottom">
+              <div>
+                <p class="price">
+                  <span class="offer-price" id="starterChickenFryPrice">₹120</span>
+                </p>
+                <p class="sub-note">Starter serving</p>
+              </div>
 
-      <!-- qty controls use JS wrapper to pick correct name + price -->
-      <div class="qty-controls"
-           data-name="Chicken Fry (Half)"
-           data-price="120">
-        <button class="qty-btn" onclick="changeChickenFryQty(this, -1)">−</button>
-        <span class="qty-value">0</span>
-        <button class="qty-btn" onclick="changeChickenFryQty(this, 1)">+</button>
-      </div>
-    </div>
-  </div>
-</article>
+              <div class="qty-controls"
+                   data-name="Chicken Fry (Half)"
+                   data-price="120">
+                <button class="qty-btn" onclick="changeStarterQty('ChickenFry', this, -1)">−</button>
+                <span class="qty-value">0</span>
+                <button class="qty-btn" onclick="changeStarterQty('ChickenFry', this, 1)">+</button>
+              </div>
+            </div>
+          </div>
+        </article>
 
-       <!-- Chicken 65 starter (Half / Full) -->
-<article class="product-card card-pop "
-         data-category="starters">
-  <div class="product-image">
-    <img src="chicken 65.jpg"
-         alt="Chicken 65">
-    <span class="badge badge-nonveg">Non‑Veg</span>
-    <span class="badge badge-bestseller">Best Seller</span>
-  </div>
-  <div class="product-info">
-    <h3>Chicken 65</h3>
-    <p class="product-desc">Crispy, spicy fried chicken starter. Choose Half or Full.</p>
+        <!-- Chicken 65 starter (Half / Full) -->
+        <article class="product-card card-pop"
+                 data-category="starters">
+          <div class="product-image">
+            <img src="chicken 65.jpg"
+                 alt="Chicken 65">
+            <span class="badge badge-nonveg">Non‑Veg</span>
+            <span class="badge badge-bestseller">Best Seller</span>
+          </div>
+          <div class="product-info">
+            <h3>Chicken 65</h3>
+            <p class="product-desc">Crispy, spicy fried chicken starter. Choose Half or Full.</p>
 
-    <div class="starter-size-row">
-      <label class="starter-size-label">Choose size:</label>
-      <select id="starterChicken65Size" class="starter-size-select">
-        <option value="half" data-price="120">Half (₹120)</option>
-        <option value="full" data-price="240">Full (₹240)</option>
-      </select>
-    </div>
+            <div class="starter-size-row">
+              <label class="starter-size-label">Choose size:</label>
+              <select id="starterChicken65Size" class="starter-size-select">
+                <option value="half" data-price="120">Half (₹120)</option>
+                <option value="full" data-price="240">Full (₹240)</option>
+              </select>
+            </div>
 
-    <div class="product-bottom">
-      <div>
-        <p class="price">
-          <span class="offer-price" id="starterChicken65Price">₹120</span>
-        </p>
-        <p class="sub-note">Starter serving</p>
-      </div>
+            <div class="product-bottom">
+              <div>
+                <p class="price">
+                  <span class="offer-price" id="starterChicken65Price">₹120</span>
+                </p>
+                <p class="sub-note">Starter serving</p>
+              </div>
 
-      <div class="qty-controls"
-           data-name="Chicken 65 (Half)"
-           data-price="120">
-        <button class="qty-btn" onclick="changeStarterQty('Chicken65', this, -1)">−</button>
-        <span class="qty-value">0</span>
-        <button class="qty-btn" onclick="changeStarterQty('Chicken65', this, 1)">+</button>
-      </div>
-    </div>
-  </div>
-</article>
+              <div class="qty-controls"
+                   data-name="Chicken 65 (Half)"
+                   data-price="120">
+                <button class="qty-btn" onclick="changeStarterQty('Chicken65', this, -1)">−</button>
+                <span class="qty-value">0</span>
+                <button class="qty-btn" onclick="changeStarterQty('Chicken65', this, 1)">+</button>
+              </div>
+            </div>
+          </div>
+        </article>
 
+        <!-- Chicken Pakodi starter (Half / Full) -->
+        <article class="product-card card-pop coming-soon"
+                 data-category="starters">
+          <div class="product-image">
+            <img src="chicken pakodi.jpg"
+                 alt="Chicken Pakodi">
+            <span class="badge badge-nonveg">Non‑Veg</span>
+          </div>
+          <div class="product-info">
+            <h3>Chicken Pakodi</h3>
+            <p class="product-desc">Crispy chicken pakodi starter. Choose Half or Full.</p>
 
+            <div class="starter-size-row">
+              <label class="starter-size-label">Choose size:</label>
+              <select id="starterChickenPakodiSize" class="starter-size-select">
+                <option value="half" data-price="120">Half (₹120)</option>
+                <option value="full" data-price="240">Full (₹240)</option>
+              </select>
+            </div>
 
-<!-- Chicken Pakodi starter (Half / Full) -->
-<article class="product-card card-pop coming-soon"
-         data-category="starters">
-  <div class="product-image">
-    <img src="chicken pakodi.jpg"
-         alt="Chicken Pakodi">
-    <span class="badge badge-nonveg">Non‑Veg</span>
-  </div>
-  <div class="product-info">
-    <h3>Chicken Pakodi</h3>
-    <p class="product-desc">Crispy chicken pakodi starter. Choose Half or Full.</p>
+            <div class="product-bottom">
+              <div>
+                <p class="price">
+                  <span class="offer-price" id="starterChickenPakodiPrice">₹120</span>
+                </p>
+                <p class="sub-note">Starter serving</p>
+              </div>
 
-    <div class="starter-size-row">
-      <label class="starter-size-label">Choose size:</label>
-      <select id="starterChickenPakodiSize" class="starter-size-select">
-        <option value="half" data-price="120">Half (₹120)</option>
-        <option value="full" data-price="240">Full (₹240)</option>
-      </select>
-    </div>
+              <div class="qty-controls"
+                   data-name="Chicken Pakodi (Half)"
+                   data-price="120">
+                <button class="qty-btn" onclick="changeStarterQty('ChickenPakodi', this, -1)">−</button>
+                <span class="qty-value">0</span>
+                <button class="qty-btn" onclick="changeStarterQty('ChickenPakodi', this, 1)">+</button>
+              </div>
+            </div>
+          </div>
+        </article>
 
-    <div class="product-bottom">
-      <div>
-        <p class="price">
-          <span class="offer-price" id="starterChickenPakodiPrice">₹120</span>
-        </p>
-        <p class="sub-note">Starter serving</p>
-      </div>
-
-      <div class="qty-controls"
-           data-name="Chicken Pakodi (Half)"
-           data-price="120">
-        <button class="qty-btn" onclick="changeStarterQty('ChickenPakodi', this, -1)">−</button>
-        <span class="qty-value">0</span>
-        <button class="qty-btn" onclick="changeStarterQty('ChickenPakodi', this, 1)">+</button>
-      </div>
-    </div>
-  </div>
-</article>
-
-
-        <!-- Existing veg / noodles / fried rice cards below ... -->
+        <!-- existing veg / noodles / fried rice cards remain unchanged ... -->
         <!-- Card 3: Veg biryani (Veg, OUT OF STOCK) -->
         <article class="product-card card-pop out-of-stock"
                  data-category="veg">
@@ -557,12 +550,3 @@
 <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
