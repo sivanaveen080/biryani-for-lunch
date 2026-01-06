@@ -566,5 +566,40 @@ button:hover {
   margin-top: 4px;
   line-height: 1.4;
 }
+/* Coming soon cards (e.g., starters) */
+.product-card.coming-soon {
+  position: relative;
+  opacity: 0.9;
+}
+
+/* Text overlay on the image or card */
+.product-card.coming-soon::after {
+  content: "COMING SOON";
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(234, 88, 12, 0.95); /* orange-ish */
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: bold;
+  z-index: 2;
+}
+
+/* Hide price area inside coming soon cards */
+.product-card.coming-soon .price,
+.product-card.coming-soon .sub-note {
+  visibility: hidden;   /* keeps layout but hides text */
+}
+
+/* Disable quantity controls (no click, dimmed) */
+.product-card.coming-soon .qty-controls {
+  pointer-events: none; /* no clicks */
+  filter: grayscale(1);
+  opacity: 0.5;
+}
+
 
 
