@@ -217,12 +217,6 @@ body {
 .sub-note {
   margin: 2px 0 0 0;
   font-size: 11px;
-  color: #e65100;
-}
-
-.sub-note {
-  margin: 2px 0 0 0;
-  font-size: 11px;
   color: #777;
 }
 
@@ -249,8 +243,8 @@ button:hover {
 /* Cart section */
 .cart {
   margin-top: 30px;
-  border-top: 1px solid #eee;
-  padding-top: 20px;
+  border-top: none;     /* old border removed */
+  padding-top: 0;
 }
 
 .cart h2 {
@@ -357,10 +351,28 @@ button:hover {
 }
 
 #cartTable td {
-  padding: 4px 0;
+  padding: 6px 4px;
   font-size: 13px;
-  text-align: left;      /* force to left side */
-  font-weight: bold;     /* make the whole line bold */
+}
+
+/* column: item name */
+.cart-item-name {
+  font-weight: bold;
+  text-align: left;
+  width: 60%;
+}
+
+/* column: quantity controls */
+.cart-item-qty {
+  text-align: center;
+  width: 20%;
+}
+
+/* column: line total */
+.cart-item-total {
+  text-align: right;
+  font-weight: bold;
+  width: 20%;
 }
 
 /* quantity control box */
@@ -403,13 +415,14 @@ button:hover {
   padding: 0 4px;
 }
 
-/* Cart wrapper as a card */
-.cart {
-  margin-top: 30px;
-  border-top: none;                 /* remove old border */
-  padding-top: 0;
+/* slightly smaller controls inside cart (optional) */
+.cart-qty-controls .qty-btn {
+  width: 26px;
+  height: 26px;
+  font-size: 16px;
 }
 
+/* Cart wrapper as a card */
 .cart-inner {
   background: #ffffff;
   border-radius: 16px;
