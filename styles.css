@@ -601,5 +601,24 @@ button:hover {
   opacity: 0.5;
 }
 
+.starter-size-row {
+  margin-bottom: 8px;
+}
+
+.starter-size-label {
+  font-size: 12px;
+  color: #555;
+}
+
+.starter-size-select {
+  margin-left: 6px;
+  padding: 4px 6px;
+  font-size: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-weight: bold;        /* makes text inside select bold (where supported) */
+}
+
+
 
 
