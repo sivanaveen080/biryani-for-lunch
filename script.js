@@ -22,8 +22,8 @@ function isWithinOrderingWindow() {
   const m = now.getMinutes();
   const minutes = h * 60 + m;
 
-  const start = 10 * 60;        // 16:00 -> 960
-  const end = 12 * 60 +30;     // 11:30 -> 690
+  const start = 10 * 60;        // 10:00
+  const end = 12 * 60 + 30;     // 12:30
 
   // range crosses midnight: valid if time >= start OR time <= end
   return minutes >= start || minutes <= end;
@@ -81,6 +81,36 @@ function changeQty(button, delta) {
   }
 
   updateCart();
+}
+
+
+// --------- SPECIAL: Chicken Fry (Half / Full) single card ---------
+
+function changeChickenFryQty(button, delta) {
+  const wrapper = button.closest('.qty-controls');
+  const sizeSelect = document.getElementById('chickenFrySize');
+  const priceSpan = document.getElementById('chickenFryPrice');
+
+  if (!wrapper || !sizeSelect) return;
+
+  const selectedOption = sizeSelect.options[sizeSelect.selectedIndex];
+  const size = selectedOption.value;                // "half" or "full"
+  const price = parseInt(selectedOption.dataset.price, 10);
+
+  const itemName = size === 'half'
+    ? 'Chicken Fry (Half)'
+    : 'Chicken Fry (Full)';
+
+  // update attributes so changeQty uses correct name/price
+  wrapper.setAttribute('data-name', itemName);
+  wrapper.setAttribute('data-price', String(price));
+
+  if (priceSpan) {
+    priceSpan.textContent = `₹${price}`;
+  }
+
+  // reuse existing cart logic
+  changeQty(button, delta);
 }
 
 
@@ -254,7 +284,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const category = card.getAttribute('data-category');
         const isBest = card.getAttribute('data-bestseller') === 'true';
 
-               let show = false;
+        let show = false;
         if (filter === 'all') {
           show = true;
         } else if (filter === 'veg') {
@@ -266,7 +296,6 @@ document.addEventListener('DOMContentLoaded', function () {
         } else if (filter === 'starters') {
           show = category === 'starters';
         }
-
 
         if (show) {
           card.classList.remove('hidden');
@@ -305,5 +334,3 @@ function closeLegal() {
     popup.style.display = 'none';
   }
 }
-
-
