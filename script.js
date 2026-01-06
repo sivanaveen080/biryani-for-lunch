@@ -132,11 +132,21 @@ function updateCart() {
   const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
   cartCount.textContent = totalQty;
 
+  // rows with + / - in cart
   cartItemsBody.innerHTML = cart.map((item) => {
     const lineTotal = item.price * item.qty;
+    const safeName = item.name.replace(/'/g, "\\'");
     return `
       <tr>
-        <td>${item.name} x${item.qty} - ₹${lineTotal}</td>
+        <td>
+          ${item.name} - ₹${lineTotal}
+          <div class="qty-controls cart-qty-controls"
+               data-name="${item.name}">
+            <button class="qty-btn" onclick="changeCartQty('${safeName}', -1)">−</button>
+            <span class="qty-value">${item.qty}</span>
+            <button class="qty-btn" onclick="changeCartQty('${safeName}', 1)">+</button>
+          </div>
+        </td>
       </tr>
     `;
   }).join('');
@@ -148,6 +158,32 @@ function updateCart() {
 
   itemsTotalSpan.textContent = itemsTotal;
   totalSpan.textContent = payableTotal;
+}
+
+
+// ------------- CHANGE QTY FROM CART (+ / - IN CART) -------------
+
+function changeCartQty(name, delta) {
+  const item = cart.find(it => it.name === name);
+  if (!item) return;
+
+  let next = item.qty + delta;
+  if (next < 0) next = 0;
+
+  if (next === 0) {
+    cart = cart.filter(it => it.name !== name);
+  } else {
+    item.qty = next;
+  }
+
+  updateCart();
+
+  // keep product card qty in sync
+  const cardControls = document.querySelectorAll(`.qty-controls[data-name="${name}"]`);
+  cardControls.forEach(ctrl => {
+    const span = ctrl.querySelector('.qty-value');
+    if (span) span.textContent = next || 0;
+  });
 }
 
 
@@ -341,4 +377,3 @@ function closeLegal() {
     popup.style.display = 'none';
   }
 }
-
