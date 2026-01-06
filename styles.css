@@ -566,10 +566,17 @@ button:hover {
   margin-top: 4px;
   line-height: 1.4;
 }
+
 /* Coming soon cards (e.g., starters) */
 .product-card.coming-soon {
   position: relative;
   opacity: 0.9;
+}
+
+/* Dim only the image inside coming soon cards */
+.product-card.coming-soon .product-image img {
+  opacity: 0.45;
+  filter: grayscale(0.2) brightness(0.8);
 }
 
 /* Text overlay on the image or card */
@@ -601,6 +608,7 @@ button:hover {
   opacity: 0.5;
 }
 
+/* starter size dropdown */
 .starter-size-row {
   margin-bottom: 8px;
 }
@@ -616,9 +624,5 @@ button:hover {
   font-size: 12px;
   border-radius: 6px;
   border: 1px solid #ccc;
-  font-weight: bold;        /* makes text inside select bold (where supported) */
+  font-weight: bold;        /* bold text in select where supported */
 }
-
-
-
-
