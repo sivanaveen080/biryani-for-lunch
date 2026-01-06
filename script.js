@@ -15,19 +15,20 @@ let isPlacingOrder = false;
 
 // ---------------- ORDERING TIME WINDOW ----------------
 
-// true if current time is between 16:00 (04 PM) and next-day 11:30
+// true if current time is between 10:00 and 12:30 (same day)
 function isWithinOrderingWindow() {
   const now = new Date();
-  const h = now.getHours();
+  const h = now.getHours();      // 0–23 in your local timezone
   const m = now.getMinutes();
   const minutes = h * 60 + m;
 
-  const start = 10 * 60;        // 10:00
-  const end = 12 * 60 + 30;     // 12:30
+  const start = 10 * 60;         // 10:00  -> 600
+  const end = 12 * 60 + 30;      // 12:30 -> 750
 
-  // range crosses midnight: valid if time >= start OR time <= end
-  return minutes >= start || minutes <= end;
+  // simple range: ONLY between start and end
+  return minutes >= start && minutes <= end;
 }
+
 
 
 // ---------------- ADD TO CART WITH QUANTITY ----------------
@@ -377,3 +378,4 @@ function closeLegal() {
     popup.style.display = 'none';
   }
 }
+
