@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const category = card.getAttribute('data-category');
         const isBest = card.getAttribute('data-bestseller') === 'true';
 
-        let show = false;
+               let show = false;
         if (filter === 'all') {
           show = true;
         } else if (filter === 'veg') {
@@ -263,7 +263,10 @@ document.addEventListener('DOMContentLoaded', function () {
           show = category === 'nonveg';
         } else if (filter === 'bestseller') {
           show = isBest;
+        } else if (filter === 'starters') {
+          show = category === 'starters';
         }
+
 
         if (show) {
           card.classList.remove('hidden');
@@ -302,4 +305,5 @@ function closeLegal() {
     popup.style.display = 'none';
   }
 }
+
 
