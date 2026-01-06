@@ -83,23 +83,30 @@ function changeQty(button, delta) {
   updateCart();
 }
 
+// --------- SPECIAL: generic starters (Half / Full) single card ---------
 
-// --------- SPECIAL: Chicken Fry (Half / Full) single card ---------
-
-function changeChickenFryQty(button, delta) {
+function changeStarterQty(key, button, delta) {
+  // key is one of: "Chicken65", "ChickenFry", "ChickenPakodi"
   const wrapper = button.closest('.qty-controls');
-  const sizeSelect = document.getElementById('chickenFrySize');
-  const priceSpan = document.getElementById('chickenFryPrice');
+  if (!wrapper) return;
 
-  if (!wrapper || !sizeSelect) return;
+  const select = document.getElementById(`starter${key}Size`);
+  const priceSpan = document.getElementById(`starter${key}Price`);
 
-  const selectedOption = sizeSelect.options[sizeSelect.selectedIndex];
-  const size = selectedOption.value;                // "half" or "full"
+  if (!select) return;
+
+  const selectedOption = select.options[select.selectedIndex];
+  const size = selectedOption.value;                  // "half" or "full"
   const price = parseInt(selectedOption.dataset.price, 10);
 
+  const baseName =
+    key === 'Chicken65' ? 'Chicken 65'
+    : key === 'ChickenFry' ? 'Chicken Fry'
+    : 'Chicken Pakodi';
+
   const itemName = size === 'half'
-    ? 'Chicken Fry (Half)'
-    : 'Chicken Fry (Full)';
+    ? `${baseName} (Half)`
+    : `${baseName} (Full)`;
 
   // update attributes so changeQty uses correct name/price
   wrapper.setAttribute('data-name', itemName);
@@ -109,7 +116,7 @@ function changeChickenFryQty(button, delta) {
     priceSpan.textContent = `₹${price}`;
   }
 
-  // reuse existing cart logic
+  // reuse common cart logic
   changeQty(button, delta);
 }
 
@@ -334,3 +341,4 @@ function closeLegal() {
     popup.style.display = 'none';
   }
 }
+
