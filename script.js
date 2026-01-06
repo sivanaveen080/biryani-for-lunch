@@ -132,14 +132,13 @@ function updateCart() {
   const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
   cartCount.textContent = totalQty;
 
-  // rows with + / - in cart
   cartItemsBody.innerHTML = cart.map((item) => {
     const lineTotal = item.price * item.qty;
     const safeName = item.name.replace(/'/g, "\\'");
     return `
       <tr>
-        <td>
-          ${item.name} - ₹${lineTotal}
+        <td class="cart-item-name">${item.name}</td>
+        <td class="cart-item-qty">
           <div class="qty-controls cart-qty-controls"
                data-name="${item.name}">
             <button class="qty-btn" onclick="changeCartQty('${safeName}', -1)">−</button>
@@ -147,6 +146,7 @@ function updateCart() {
             <button class="qty-btn" onclick="changeCartQty('${safeName}', 1)">+</button>
           </div>
         </td>
+        <td class="cart-item-total">₹${lineTotal}</td>
       </tr>
     `;
   }).join('');
