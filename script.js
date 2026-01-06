@@ -22,8 +22,8 @@ function isWithinOrderingWindow() {
   const m = now.getMinutes();
   const minutes = h * 60 + m;
 
-  const start = 16 * 60;        // 16:00 -> 960
-  const end = 12 * 60;     // 11:30 -> 690
+  const start = 10 * 60;        // 16:00 -> 960
+  const end = 12 * 60 +30;     // 11:30 -> 690
 
   // range crosses midnight: valid if time >= start OR time <= end
   return minutes >= start || minutes <= end;
@@ -122,10 +122,10 @@ function openOrderPopup() {
     return;
   }
 
-  // allow orders only from 04:00 PM to next day 12:00 PM
+  // allow orders only from 10:00 AM to 12:30 PM
   if (!isWithinOrderingWindow()) {
     alert(
-      'Orders can be placed only between 04:00 PM and next day 12:00 PM.\n' +
+      'Orders can be placed only between 10:00 AM to 12:30 PM.\n' +
       'Sorry..! please visit again during that time window.'
     );
     return;
@@ -136,7 +136,7 @@ function openOrderPopup() {
   // set delivery information text on the popup
   const infoEl = document.getElementById('deliveryInfo');
   if (infoEl) {
-    infoEl.textContent = 'Orders will be delivered between 1:30 PM and 3:00 PM.';
+    infoEl.textContent = 'Orders will be delivered between 1:30 PM and 2:30 PM.';
   }
 
   document.getElementById('orderPopup').style.display = 'flex';
