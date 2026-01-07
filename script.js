@@ -23,7 +23,7 @@ function isWithinOrderingWindow() {
   const minutes = h * 60 + m;
 
   const start = 10 * 60;         // 10:00  -> 600
-  const end = 12 * 60 + 30;      // 12:30 -> 750
+  const end = 13 * 60;      // 12:30 -> 750
 
   // simple range: ONLY between start and end
   return minutes >= start && minutes <= end;
