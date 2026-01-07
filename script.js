@@ -15,7 +15,7 @@ let isPlacingOrder = false;
 
 // ---------------- ORDERING TIME WINDOW ----------------
 
-// true if current time is between 10:00 and 12:30 (same day)
+// true if current time is between 10:00 AM and 1:30 PM (same day)
 function isWithinOrderingWindow() {
   const now = new Date();
   const h = now.getHours();      // 0–23 in your local timezone
@@ -196,10 +196,10 @@ function openOrderPopup() {
     return;
   }
 
-  // allow orders only from 10:00 AM to 12:30 PM
+  // allow orders only from 10:00 AM to 1:30 PM
   if (!isWithinOrderingWindow()) {
     alert(
-      'Orders can be placed only between 10:00 AM to 12:30 PM.\n' +
+      'Orders can be placed only between 10:00 AM to 1:30 PM.\n' +
       'Sorry..! please visit again during that time window.'
     );
     return;
